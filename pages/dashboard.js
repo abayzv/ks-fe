@@ -130,6 +130,13 @@ export default function Dashboard() {
     series: getSeries(dataAdmin?.grade),
   }
 
+  const chartSablon = {
+    options: {
+      labels: getLabel(dataAdmin?.sablon)
+    },
+    series: getSeries(dataAdmin?.sablon),
+  }
+
   // handle select top category
   const handleSelectTopCategory = (e) => {
     setTopCategory(e.target.value);
@@ -144,32 +151,24 @@ export default function Dashboard() {
     <Layout middleware="auth" title="Dashboard">
       <Container>
         <div className="flex flex-wrap">
-          <div className="w-1/4 p-2">
-            <CardWidget title="Transaksi Hari Ini" count={dataAdmin?.queue_today}>
+          <div className="w-1/3 p-2">
+            <CardWidget title="Transaksi Hari Ini" count={dataAdmin?.curentTransaction}>
               <BiDollar size={55} />
             </CardWidget>
           </div>
-          <div className="w-1/4 p-2">
-            <CardWidget
-              title="Total Customer"
-              count={dataAdmin?.total_customer}
-            >
-              <BiUser size={50} />
-            </CardWidget>
-          </div>
-          <div className="w-1/4 p-2">
-            <CardWidget title="Total Produk" count={mechanicReady()}>
+          <div className="w-1/3 p-2">
+            <CardWidget title="Total Produk" count={dataAdmin?.allProduct}>
               <BsBox size={40} />
             </CardWidget>
           </div>
-          <div className="w-1/4 p-2">
-            <CardWidget title="Total Transaksi" count={dataAdmin?.total_queue}>
+          <div className="w-1/3 p-2">
+            <CardWidget title="Total Transaksi" count={dataAdmin?.allTransaction}>
               <BsReceipt size={40} />
             </CardWidget>
           </div>
         </div>
         <div className="flex flex-wrap">
-          <div className="w-3/6 p-2">
+          {/* <div className="w-3/6 p-2">
             <div className="bg-white shadow-md w-full h-72 rounded p-5">
               <div className="text-gray-500">Data Pelanggan Bulan Ini</div>
               {Object.keys(dataAdmin).length > 0 && (
@@ -181,25 +180,25 @@ export default function Dashboard() {
                 />
               )}
             </div>
-          </div>
-          {/* <div className="w-2/6 p-2">
+          </div> */}
+          <div className="w-3/6 p-2">
             <div className="bg-white shadow-md w-full h-72 p-5 rounded">
-              <div className="text-gray-500 mb-4">Servis Terakhir</div>
-              {dataAdmin?.last_servis?.map((item) => (
+              <div className="text-gray-500 mb-4">Transaksi</div>
+              {dataAdmin?.payment?.map((item) => (
                 <>
                   <hr />
                   <div className="flex justify-between items-center py-4">
                     <div className="text-gray-500 font-bold text-sm">
-                      {item.vehicle.name}
+                      {item.name}
                     </div>
                     <div className="text-red-300 font-semibold text-sm">
-                      {item.service_type.name}
+                      {item.total}
                     </div>
                   </div>
                 </>
               ))}
             </div>
-          </div> */}
+          </div>
           <div className="w-3/6 p-2">
             <div className="bg-white shadow-md w-full h-72 rounded p-5">
               <div className="flex align-middle justify-between">
@@ -208,10 +207,9 @@ export default function Dashboard() {
               <select onClick={handleSelectTopCategory} className="block appearance-none bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded leading-tight focus:outline-none focus:shadow-outline">
                   <option disabled>Pilih Kategori</option>
                   <option value="Product">Produk</option>
-                  <option value="">Jenis Sablon</option>
+                  <option value="Sablon">Jenis Sablon</option>
                   <option value="Color">Warna</option>
                   <option value="Grade">Kualitas</option>
-                  <option value="">Pembayaran</option>
               </select>
               </div>
               {topCategory == "Product" && (
@@ -239,6 +237,16 @@ export default function Dashboard() {
                   <Chart
                     options={chartGrade.options}
                     series={chartGrade.series}
+                    height="90%"
+                    type="donut"
+                  />
+                )
+              )}
+               {topCategory == "Sablon" && (
+                Object.keys(dataAdmin).length > 0 && (
+                  <Chart
+                    options={chartSablon.options}
+                    series={chartSablon.series}
                     height="90%"
                     type="donut"
                   />

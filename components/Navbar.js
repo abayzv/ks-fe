@@ -38,31 +38,11 @@ export default function Navbar() {
                 Dashboard
               </a>
             </Link>
-            <Link href="/customer">
+            <Link href="/products">
               <a className="block px-4 py-2 rounded-lg hover:bg-gray-100 font-medium transition duration-200">
-                Pelanggan
+                Produk
               </a>
             </Link>
-            <Link href="/service">
-              <a className="block px-4 py-2 rounded-lg hover:bg-gray-100 font-medium transition duration-200">
-                Servis
-              </a>
-            </Link>
-            <Link href="/vehicle">
-              <a className="block px-4 py-2 rounded-lg hover:bg-gray-100 font-medium transition duration-200">
-                Kendaraan
-              </a>
-            </Link>
-            <Link href="/mechanic">
-              <a className="block px-4 py-2 rounded-lg hover:bg-gray-100 font-medium transition duration-200">
-                Mekanik
-              </a>
-            </Link>
-            <a href="/queue">
-              <a className="block px-4 py-2 rounded-lg hover:bg-gray-100 font-medium transition duration-200">
-                Antrian
-              </a>
-            </a>
           </div>
           {authUser?.user ? (
             <div className="flex items-center z-50">
