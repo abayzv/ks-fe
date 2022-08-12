@@ -43,6 +43,11 @@ export default function Navbar() {
                 Produk
               </a>
             </Link>
+            <Link href="/sablon">
+              <a className="block px-4 py-2 rounded-lg hover:bg-gray-100 font-medium transition duration-200">
+                Sablon
+              </a>
+            </Link>
           </div>
           {authUser?.user ? (
             <div className="flex items-center z-50">

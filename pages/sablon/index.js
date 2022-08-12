@@ -13,9 +13,10 @@ export default function Home() {
   const authUser = useRecoilValueLoadable(authUserState);
   const getData = async () => {
     try {
-      const response = await axios.get("/api/kaostory");
+      const response = await axios.get("/api/sablons");
       if (response) {
-        setDataTable(response.data.product);
+        console.log(response.data);
+        setDataTable(response.data);
       }
     } catch (error) {}
   };
@@ -27,12 +28,8 @@ export default function Home() {
     const [isDisabled, setDisabled] = useState(true);
     const [colorSelect, setColorSelect] = useState("");
     const [data, setData] = useState({
+      name: null,
       category : null,
-      type : null,
-      grade : null,
-      size : null,
-      color : null,
-      stock : null,
       price : null,
     });
 
@@ -40,7 +37,7 @@ export default function Home() {
       setBtnLoading(true);
       if (authUser?.contents.user.username == "admin") {
         try {
-          const response = await axios.post("/api/products", data);
+          const response = await axios.post("/api/sablons", data);
           if (response) {
             getData();
             setBtnLoading(false);
@@ -94,7 +91,7 @@ export default function Home() {
           type="button"
           onClick={() => setShowModal(true)}
         >
-          Tambah Produk
+          Tambah Sablon
         </button>
         {showModal ? (
           <>
@@ -117,20 +114,20 @@ export default function Home() {
                   {/*body*/}
                   <div className="relative p-6 flex-auto">
                     <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 gap-4">
                         <div className="flex flex-col">
                           <label htmlFor="" className="text-sm">
                             Nama
                           </label>
                           <input
                             type="text"
-                            name="category"
+                            name="name"
                             onChange={handleChange}
                             className="mt-2 border-gray-300 shadow-md focus:ring-gray-300 focus:border-white"
                             placeholder="Masukan nama produk"
                           />
                           <div className="text-xs text-red-500 mt-2">
-                            {errors && errors.category && errors.category}
+                            {errors && errors.name && errors.name}
                           </div>
                         </div>
                         <div className="flex flex-col">
@@ -138,86 +135,13 @@ export default function Home() {
                             Lengan
                           </label>
                           {/* create select */}
-                          <select onChange={handleChange} name="type" className="mt-2 border-gray-300 shadow-md focus:ring-gray-300 focus:border-white">
-                          <option>Pilih Tipe Lengan</option>
-                          <option value="Panjang">Panjang</option>
-                          <option value="Pendek">Pendek</option>
+                          <select onChange={handleChange} name="category" className="mt-2 border-gray-300 shadow-md focus:ring-gray-300 focus:border-white">
+                          <option>Pilih Tipe Sablon</option>
+                          <option value="DTF">DTF</option>
+                          <option value="Polyflex">Polyflex</option>
                           </select>
                           <div className="text-xs text-red-500 mt-2">
-                            {errors && errors.type && errors.type}
-                          </div>
-                        </div>
-                        <div className="flex flex-col">
-                          <label htmlFor="" className="text-sm">
-                            Kualitas
-                          </label>
-                          {/* create select */}
-                          <select onChange={handleChange} name="grade" className="mt-2 border-gray-300 shadow-md focus:ring-gray-300 focus:border-white">
-                          <option>Pilih Kualitas</option>
-                          <option value="Standard">Standard</option>
-                          <option value="Premium">Premium</option>
-                          </select>
-                          <div className="text-xs text-red-500 mt-2">
-                            {errors && errors.grade && errors.grade}
-                          </div>
-                        </div>
-                        <div className="flex flex-col">
-                          <label htmlFor="" className="text-sm">
-                            Ukuran
-                          </label>
-                          <select onChange={handleChange} name="size" className="mt-2 border-gray-300 shadow-md focus:ring-gray-300 focus:border-white">
-                          <option>Pilih Ukuran</option>
-                          <option value="XS">XS</option>
-                          <option value="S">S</option>
-                          <option value="M">M</option>
-                          <option value="L">L</option>
-                          <option value="XL">XL</option>
-                          <option value="XXL">XXL</option>
-                          <option value="XXXL">XXXL</option>
-                          </select>
-                          <div className="text-xs text-red-500 mt-2">
-                            {errors && errors.size && errors.size}
-                          </div>
-                        </div>
-                        <div className="flex flex-col">
-                          <label htmlFor="" className="text-sm">
-                            Warna
-                          </label>
-                          {colorSelect == "Isi Sendiri" ? (<><input
-                            type="text"
-                            name="color"
-                            onChange={handleChange2}
-                            className="mt-2 border-gray-300 shadow-md focus:ring-gray-300 focus:border-white"
-                            placeholder="Masukan warna"
-                          /></>) : (<>
-                            <select onChange={handleChange} name="color" className="mt-2 border-gray-300 shadow-md focus:ring-gray-300 focus:border-white">
-                          <option>Pilih Warna</option>
-                          <option value="Isi Sendiri">Isi Sendiri</option>
-                          <option value="Hitam">Hitam</option>
-                          <option value="Putih">Putih</option>
-                          <option value="Navy">Navy</option>
-                          <option value="Hijau">Hijau</option>
-                          <option value="Forest Green">Forest Green</option>
-                          <option value="Sky Blue">Sky Blue</option>
-                          <option value="Merah Cabai">Merah Cabai</option>
-                          </select></>)}
-                          <div className="text-xs text-red-500 mt-2">
-                            {errors && errors.color && errors.color}
-                          </div>
-                        </div>
-                        <div className="flex flex-col">
-                          <label htmlFor="" className="text-sm">
-                            Stock
-                          </label>
-                          <input
-                            type="number"
-                            name="stock"
-                            onChange={handleChange}
-                            className="mt-2 border-gray-300 shadow-md focus:ring-gray-300 focus:border-white"
-                            placeholder="Jumlah Stock"
-                          />
-                          <div className="text-xs text-red-500 mt-2">
-                            {errors && errors.stock && errors.stock}
+                            {errors && errors.category && errors.category}
                           </div>
                         </div>
                         <div className="flex flex-col">
@@ -225,11 +149,11 @@ export default function Home() {
                             Harga
                           </label>
                           <input
-                            type="number"
+                            type="text"
                             name="price"
                             onChange={handleChange}
                             className="mt-2 border-gray-300 shadow-md focus:ring-gray-300 focus:border-white"
-                            placeholder="Harga"
+                            placeholder="Masukan nama produk"
                           />
                           <div className="text-xs text-red-500 mt-2">
                             {errors && errors.price && errors.price}
@@ -441,29 +365,19 @@ export default function Home() {
   const columns = [
     {
       name: "Nama",
-      selector: (row) => row.product.category,
+      selector: (row) => row.name,
       sortable: true,
     },
     {
-      name: "Ukuran",
-      selector: (row) => row.product.size,
+      name: "Kategori",
+      selector: (row) => row.category,
       sortable: true,
     },
     {
-      name: "Kualitas",
-      selector: (row) => row.product.grade,
+      name: "Harga",
+      selector: (row) => row.price,
       sortable: true,
     },
-    {
-      name: "Stock",
-      selector: (row) => row.product.stock - row.total,
-      sortable: true,
-    },
-    {
-      name: "Penjualan",
-      selector: (row) => row.total,
-      sortable: true,
-    }
   ];
 
   useEffect(() => {
@@ -475,7 +389,7 @@ export default function Home() {
       <Container>
         <div className="p-3 shadow-md bg-white rounded mb-5">
           <div className="px-3 flex font-semibold items-center justify-between w-full">
-            <h1>Daftar Produk</h1>
+            <h1>Daftar Sablon</h1>
             <Modal />
           </div>
         </div>
