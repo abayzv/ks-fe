@@ -48,6 +48,16 @@ export default function Navbar() {
                 Sablon
               </a>
             </Link>
+            <Link href="/transaksi">
+              <a className="block px-4 py-2 rounded-lg hover:bg-gray-100 font-medium transition duration-200">
+                Transaksi
+              </a>
+            </Link>
+            <Link href="/kasir">
+              <a className="block px-4 py-2 rounded-lg hover:bg-gray-100 font-medium transition duration-200">
+                Kasir
+              </a>
+            </Link>
           </div>
           {authUser?.user ? (
             <div className="flex items-center z-50">
