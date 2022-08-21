@@ -94,6 +94,11 @@ export default function Home() {
     dp: 0,
   });
 
+  const getDataProducts = async () => {
+    const response = await axios.get("/api/products");
+    setAllProduct(response.data);
+  }
+
   const getDataSablon = async () => {
     const response = await axios.get("/api/sablons");
     setSablonType(response.data);
@@ -564,7 +569,8 @@ export default function Home() {
 
   useEffect(() => {
     getData();
-    getDataSablon()
+    getDataSablon();
+    getDataProducts();
   }, []);
 
   return (
