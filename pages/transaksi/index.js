@@ -16,7 +16,6 @@ export default function Home() {
     try {
       const response = await axios.get("/api/transaction");
       if (response) {
-        console.log(response.data);
         setDataTable(response.data);
       }
     } catch (error) {}

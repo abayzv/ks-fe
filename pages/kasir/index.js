@@ -103,7 +103,6 @@ export default function Home() {
     try {
       // console.log(data)
       const response = await axios.post(`/api/transaction`, data);
-      console.log(response)
       toaster.notify("Transaksi berhasil", {
         position: "bottom-right",
         duration: 3000,
@@ -510,13 +509,11 @@ export default function Home() {
           harga: product.harga,
         };
       });
-    console.log(result);
     if (e.target.value === "") {
       setSearchResult([]);
     } else {
       setSearchResult(result);
     }
-    console.log(searchResult);
     return result;
   };
 
@@ -525,7 +522,6 @@ export default function Home() {
     try {
       const response = await axios.get("/api/sablons");
       if (response) {
-        console.log(response.data);
         setDataTable(response.data);
       }
     } catch (error) {}

@@ -19,7 +19,6 @@ export default function Home() {
     try {
       const response = await axios.get(`/api/transaction/${id}`);
       if (response) {
-        console.log(response.data.data);
         setData(response.data.data);
       }
     } catch (error) {}

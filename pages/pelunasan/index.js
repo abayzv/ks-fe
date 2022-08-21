@@ -29,7 +29,7 @@ export default function Home() {
           duration: 3000,
         });
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
   // int to rupiah
@@ -156,8 +156,8 @@ export default function Home() {
                       Rp.{" "}
                       {toRupiah(
                         data.dp -
-                          sumSubtotal(data.product) -
-                          parseInt(data.diskon)
+                        sumSubtotal(data.product) -
+                        parseInt(data.diskon)
                       )}{" "}
                     </p>
                   </div>

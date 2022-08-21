@@ -143,7 +143,6 @@ export default function Dashboard() {
 
   useEffect(() => {
     getDataAdmin();
-    console.log(dataAdmin);
   }, []);
 
   return (

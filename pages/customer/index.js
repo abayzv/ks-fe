@@ -44,7 +44,6 @@ export default function Home() {
           if (response) {
             getData();
             setBtnLoading(false);
-            console.log(response)
             toaster.notify(response.data.message, {
               position: "bottom-right",
             });

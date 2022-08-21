@@ -207,7 +207,6 @@ export default function Home() {
             });
           }
         } catch (r) {
-          console.log(r.response.data.errors);
           setErrors(r.response.data.errors);
           toaster.notify("Data tidak boleh kosong", {
             position: "bottom-right",

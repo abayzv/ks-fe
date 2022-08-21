@@ -15,7 +15,6 @@ export default function Home() {
     try {
       const response = await axios.get("/api/sablons");
       if (response) {
-        console.log(response.data);
         setDataTable(response.data);
       }
     } catch (error) {}
@@ -41,7 +40,6 @@ export default function Home() {
           if (response) {
             getData();
             setBtnLoading(false);
-            console.log(response)
             toaster.notify(response.data.message, {
               position: "bottom-right",
             });
